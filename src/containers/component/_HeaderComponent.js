@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Header } from 'native-base';
 import globalsVariables from '@constant/globalsVariables';
 import { widthPercentage } from '@config/helper';
 import PropTypes from 'prop-types';
@@ -44,11 +45,16 @@ function _HeaderComponent(props) {
     }
 
     return (
-        <View style={[styles.container, { marginTop: (globalsVariables.OS === 'android') ? 0 : (globalsVariables.isIphoneX) ? 40 : 20 }]}>
+        <Header>
             <View style={styles.containerWrapper}>
                 {headerView()}
             </View>
-        </View>
+        </Header>
+        // <View style={[styles.container, { marginTop: (globalsVariables.OS === 'android') ? 0 : (globalsVariables.isIphoneX) ? 40 : 20 }]}>
+        //     <View style={styles.containerWrapper}>
+        //         {headerView()}
+        //     </View>
+        // </View>
     )
 }
 
@@ -85,23 +91,28 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.7,
         borderBottomColor: colors.modalBorderColor,
         paddingVertical: globalsVariables.width * 0.030,
+        backgroundColor: colors.headerBackgroundColor
     },
     containerWrapper: {
+        flex:1,
         paddingHorizontal: globalsVariables.width * 0.055,
     },
     upperWrapper: {
+        backgroundColor: colors.headerBackgroundColor
     },
     topTitleWrapper: {
     },
     titleText: {
         color: colors.gray_dark,
         fontSize: font.fontSize_11,
-        fontFamily: font.fontFamily_bold
+        // fontFamily: font.fontFamily_bold
+        fontWeight:'bold'
     },
     subTitleTextStyle: {
         color: colors.black,
-        fontSize: font.fontSize_16,
-        fontFamily: font.fontFamily_bold
+        fontSize: font.fontSize_20,
+        // fontFamily: font.fontFamily_bold
+        fontWeight:'bold'
     },
     subTitleWrapper: {
         flexDirection: 'row',

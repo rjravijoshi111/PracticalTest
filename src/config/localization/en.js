@@ -1,5 +1,5 @@
 export default {
-    appName: "Demo App",
+    appName: "Practical App",
     noData: 'No Data',
 
     tabBar: {

@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MyHomeNavigator from '@screens/myHome/index'
+import StripsNavigator from '@screens/strips/index'
 import { Icon } from 'native-base';
 import colors from '@constant/colors';
 import font from '@constant/font';
@@ -41,8 +42,8 @@ function AppNavigator() {
                 }}
             />
             <Tab.Screen
-                name="MyHomeNavigator1"
-                component={MyHomeNavigator}
+                name="StripsNavigator"
+                component={StripsNavigator}
                 options={{
                     title: stripsTitle,
                     tabBarIcon: ({ size, color }) => (
