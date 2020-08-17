@@ -13,6 +13,8 @@ import * as StripeAction from '@stripes/stripes.action';
 import globalsVariables from '@constant/globalsVariables';
 import _StripsListComponent from '@component/strips/_StripsListComponent';
 import _ColorListView from '@component/strips/_ColorListView';
+import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
+
 import _ from 'lodash'
 
 const { height, width }= Dimensions.get('screen');
@@ -178,6 +180,7 @@ class StripsScreen extends Component {
         const { stripesList } = this.props;
         return (
             <Container style={styles.container}>
+                <KeyboardAwareScrollView>
                     <View style={styles.contentContainerStyle}>
                         <View>
                             <View style={styles.nextBtnContainer}>
@@ -202,6 +205,7 @@ class StripsScreen extends Component {
                             />
                         </View>
                     </View>
+                </KeyboardAwareScrollView>
             </Container>
         )
     }

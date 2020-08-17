@@ -58,7 +58,10 @@ const styles = StyleSheet.create({
         fontSize: font.fontSize_12,
         color: colors.blueColor,
         fontFamily: font.fontFamily_semi_bold,
-        textAlign: 'center'
+        textAlign: 'center',
+        flex:1,
+        width:'100%',
+        
     },
     stripMainContainer: {
         flexDirection: 'row',
