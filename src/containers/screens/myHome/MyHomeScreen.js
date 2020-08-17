@@ -10,10 +10,9 @@ import * as MyHomeService from '@myHome/myHome.service';
 import * as MyHomeAction from "@myHome/myHome.action";
 import font from '@constant/font';
 import Share from 'react-native-share';
-import { requestCameraPermission } from '@config/helper';
+import { openImagePicker,openCamera } from '@config/helper';
 import _VideoListingComponent from '@component/myHome/_VideoListingComponent';
-import ImagePicker from 'react-native-image-crop-picker';
-import _ImagePickerOptionModal from '../../component/myHome/_ImagePickerOptionModal';
+import _ImagePickerOptionModal from '@component/myHome/_ImagePickerOptionModal';
 
 const { shareVia, shareMsg } = Language.myHomeScreen
 const shareOptions = {
@@ -27,7 +26,6 @@ class MyHomeScreen extends Component {
         this.state = {
             onEndReachedCalledDuringMomentum: true,
             isImageOptionModalVisible: false,
-            profileImageSource: ''
         }
         props.getVideoList();
     }
@@ -132,48 +130,22 @@ class MyHomeScreen extends Component {
     /**
     * * Handling profile option tap
     */
-    handleProfileOptionPress = (isCameraOpenFlag) => {
+    handleProfileOptionPress = async (isCameraOpenFlag) => {
         this.setState({ isImageOptionModalVisible: false });
-        requestCameraPermission({
-            success: (response) => {
-                if (response === PermissionsAndroid.RESULTS.GRANTED) {
-                    if (isCameraOpenFlag) {
-                        ImagePicker.openCamera({
-                            cropping: true,
-                            width: globalsVariables.width,
-                            height: globalsVariables.width
-                        }).then((response) => {
-                            let imageData = { uri: (Platform.OS === 'android') ? response.path : decodeURI(response.path) }
-                            this.props.setUserProfileImage(imageData)
-                        }).catch((error) => {
-                            // console.log('ImagePicker openCamera Error: ', error)
-                        });
-                    } else {
-                        ImagePicker.openPicker({
-                            cropping: true,
-                            width: globalsVariables.width,
-                            height: globalsVariables.width
-                        }).then((response) => {
-                            let imageData = { uri: (Platform.OS === 'android') ? response.path : decodeURI(response.path) }
-                            this.props.setUserProfileImage(imageData)
-                        }).catch((error) => {
-                            // console.log('ImagePicker openPicker Error: ', error)
-                        });
-                    }
-
-                } else if (response === PermissionsAndroid.NEVER_ASK_AGAIN) {
-                    ToastAndroid.show('Need camera permission!', ToastAndroid.SHORT);
-                } else {
-                    ToastAndroid.show('Camera Permission required to upload image', ToastAndroid.SHORT);
-                }
-            }
-        })
+        let response = undefined;
+        if(isCameraOpenFlag){
+            response = await openCamera()
+        }else{
+            response = await openImagePicker()
+        }
+        let imageData = { uri: (Platform.OS === 'android') ? response.path : decodeURI(response.path) }
+        this.props.setUserProfileImage(imageData)
     }
 
     render() {
         const { title, subTitle } = Language.myHomeScreen;
         const { videoList, isRefreshing } = this.props;
-        const { isImageOptionModalVisible, profileImageSource } = this.state;
+        const { isImageOptionModalVisible } = this.state;
 
         const imagePickerPopUp = <_ImagePickerOptionModal
             isImageOptionModalVisible={isImageOptionModalVisible}
