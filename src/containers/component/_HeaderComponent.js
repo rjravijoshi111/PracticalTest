@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Header } from 'native-base';
 import globalsVariables from '@constant/globalsVariables';
 import { widthPercentage } from '@config/helper';
@@ -45,7 +45,7 @@ function _HeaderComponent(props) {
     }
 
     return (
-        <Header>
+        <Header androidStatusBarColor={colors.headerBackgroundColor} style={styles.headeStyle}>
             <View style={styles.containerWrapper}>
                 {headerView()}
             </View>
@@ -87,6 +87,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(_HeaderComponent);
  **------------------------------------------------------------------------------------------*/
 
 const styles = StyleSheet.create({
+    headeStyle:{
+        backgroundColor: colors.headerBackgroundColor,
+        height: Platform.OS == 'android' ? 64 : 64
+    },
     container: {
         borderBottomWidth: 0.7,
         borderBottomColor: colors.modalBorderColor,
